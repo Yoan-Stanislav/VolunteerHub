@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Кандидатствай{% endblock %}
+{% block content %}
+<div class="container-md">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-6">
+      <h2 class="mb-3">Кандидатствай за събитие</h2>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary w-100">Изпрати</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

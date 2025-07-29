@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ organization.name }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2 class="card-title">{{ organization.name }}</h2>
+        <p class="card-text">{{ organization.description }}</p>
+        {% if organization.website %}
+          <p><strong>Уебсайт:</strong> <a href="{{ organization.website }}" target="_blank">{{ organization.website }}</a></p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

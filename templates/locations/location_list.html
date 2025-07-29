@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Локации{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Локации</h1>
+<div class="list-group">
+  {% for loc in locations %}
+    <a href="{% url 'locations:location-detail' loc.pk %}" class="list-group-item list-group-item-action">
+      {{ loc.name }}, {{ loc.city }}
+    </a>
+  {% empty %}
+    <div class="list-group-item">Няма локации.</div>
+  {% endfor %}
+</div>
+{% endblock %}

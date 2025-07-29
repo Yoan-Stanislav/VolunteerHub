@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Добре дошли{% endblock %}
+
+{% block content %}
+<div class="text-center mt-5">
+    <h1>Добре дошли във VolunteerHub!</h1>
+    <p class="lead mb-4">Тук можете да откриете и управлявате доброволчески събития.</p>
+    <a href="{% url 'events:event-list' %}" class="btn btn-primary btn-lg">Виж всички събития</a>
+</div>
+{% endblock %}

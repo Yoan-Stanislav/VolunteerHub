@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Моят профил{% endblock %}
+
+{% block content %}
+<div class="container-md">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8">
+      <h1 class="mb-4 text-center">Моят профил</h1>
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title text-center">{{ profile.user.get_full_name }}</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Email:</strong> {{ profile.user.email }}</li>
+            <li class="list-group-item"><strong>Телефон:</strong> {{ profile.phone }}</li>
+            <li class="list-group-item"><strong>Дата на раждане:</strong> {{ profile.birth_date }}</li>
+            <li class="list-group-item"><strong>Умения:</strong> {{ profile.skills }}</li>
+          </ul>
+        </div>
+        <div class="card-footer text-end">
+          <a href="{% url 'accounts:profile-edit' %}" class="btn btn-primary">Редактирай профила</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
