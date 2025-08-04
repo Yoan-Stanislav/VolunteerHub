@@ -20,9 +20,27 @@ VolunteerHub е уеб приложение за управление на до�
 
 ---
 
-## Скриншот
 
-![Скриншот](Screenshot.png)
+## Скрийншоти
+
+### 1. Регистрация
+![Регистрация](Screenshot1.png)
+
+### 2. Вход
+![Вход](Screenshot2.png)
+
+### 3. Моят профил
+![Моят профил](Screenshot3.png)
+
+### 4. Начало
+![Начало](Screenshot4.png)
+
+### 5. Моите събития
+![Моите събития](Screenshot5.png)
+
+### 6. Свържете се с нас
+![Свържете се с нас](Screenshot6.png)
+
 
 ---
 
@@ -51,9 +69,4 @@ python manage.py runserver
 5. Достъп през [localhost:8000](http://localhost:8000)
 
 
-![screenshot](./Screenshot.png)
-![screenshot](./Screenshot1.png)
-![screenshot](./Screenshot2.png)
-![screenshot](./Screenshot3.png)
-![screenshot](./Screenshot4.png)
-![screenshot](./Screenshot5.png)
+
