@@ -57,3 +57,5 @@ class ProfileForm(forms.ModelForm):
         if skills and len(skills) < 3:
             raise forms.ValidationError("Please list at least one skill (3+ chars).")
         return skills
+
+

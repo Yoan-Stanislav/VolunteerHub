@@ -36,3 +36,4 @@ class EventForm(forms.ModelForm):
         description = self.cleaned_data.get("description")
         sanitizer = Sanitizer()
         return sanitizer.sanitize(description)
+
