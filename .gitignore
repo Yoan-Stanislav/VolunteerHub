@@ -1,4 +1,27 @@
+# Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Django
+db.sqlite3
+.env
+
+# VSCode/PyCharm
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Media/uploads (ако имаш)
+media/
+uploads/
+
+# Миграции кеширани (ако искаш)
+*/migrations/__pycache__/
