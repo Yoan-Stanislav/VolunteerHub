@@ -13,8 +13,6 @@ class RegisterView(CreateView):
     success_url = reverse_lazy("accounts:login")
 
     def form_valid(self, form):
-        user = form.save()
-        create_profile_and_add_staff(user)
         messages.success(self.request, "Registration successful! You can now log in.")
         return super().form_valid(form)
 

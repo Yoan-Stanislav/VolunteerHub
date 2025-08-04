@@ -33,6 +33,9 @@
           <li class="nav-item">
             <a class="nav-link" href="/api/events/" target="_blank">API</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'admin:index' %}" target="_blank">Админ панел</a>
+          </li>
           {% endif %}
         </ul>
         <ul class="navbar-nav">
@@ -75,14 +78,4 @@
 
   <main class="container">
     {% block content %}{% endblock %}
-  </main>
-
-  <footer class="container text-center mt-4 mb-4">
-    <hr>
-    <p>&copy; 2025 VolunteerHub</p>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="{% static 'js/main.js' %}"></script>
-</body>
-</html>
+  </main
