@@ -8,47 +8,53 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('applications', '0001_initial'),
-        ('events', '0001_initial'),
+        ("applications", "0001_initial"),
+        ("events", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='application',
+            name="application",
             options={},
         ),
         migrations.RenameField(
-            model_name='application',
-            old_name='applied_at',
-            new_name='created_at',
+            model_name="application",
+            old_name="applied_at",
+            new_name="created_at",
         ),
         migrations.AlterUniqueTogether(
-            name='application',
+            name="application",
             unique_together=set(),
         ),
         migrations.AddField(
-            model_name='application',
-            name='message',
+            model_name="application",
+            name="message",
             field=models.TextField(blank=True),
         ),
         migrations.AddField(
-            model_name='application',
-            name='user',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="application",
+            name="user",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+            ),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='application',
-            name='event',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='events.event'),
+            model_name="application",
+            name="event",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="events.event"
+            ),
         ),
         migrations.RemoveField(
-            model_name='application',
-            name='status',
+            model_name="application",
+            name="status",
         ),
         migrations.RemoveField(
-            model_name='application',
-            name='volunteer',
+            model_name="application",
+            name="volunteer",
         ),
     ]

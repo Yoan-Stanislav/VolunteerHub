@@ -2,6 +2,7 @@ from rest_framework import viewsets
 from .models import Event
 from .serializers import EventSerializer
 
+
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
@@ -11,6 +12,6 @@ class EventViewSet(viewsets.ModelViewSet):
         org = user.organizations.first()
         if not org:
             from rest_framework.exceptions import ValidationError
+
             raise ValidationError({"organization": "Потребителят няма организация!"})
         serializer.save(organization=org)
-

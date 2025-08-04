@@ -5,22 +5,24 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Application
 from .forms import ApplicationForm
 
+
 class ApplicationListView(LoginRequiredMixin, ListView):
     model = Application
-    template_name = 'applications/application_list.html'
-    context_object_name = 'applications'
+    template_name = "applications/application_list.html"
+    context_object_name = "applications"
 
     def get_queryset(self):
         return Application.objects.filter(user=self.request.user)
 
+
 class ApplicationCreateView(LoginRequiredMixin, CreateView):
     model = Application
     form_class = ApplicationForm
-    template_name = 'applications/application_form.html'
+    template_name = "applications/application_form.html"
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        form.instance.event_id = self.kwargs['event_pk']
+        form.instance.event_id = self.kwargs["event_pk"]
         messages.success(self.request, "Your application has been submitted!")
         return super().form_valid(form)
 
@@ -29,4 +31,4 @@ class ApplicationCreateView(LoginRequiredMixin, CreateView):
         return super().form_invalid(form)
 
     def get_success_url(self):
-        return reverse_lazy('applications:application-list')
+        return reverse_lazy("applications:application-list")

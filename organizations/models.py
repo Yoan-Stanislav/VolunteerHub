@@ -10,9 +10,9 @@ class Organization(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='organizations',
+        related_name="organizations",
         null=True,
-        blank=True
+        blank=True,
     )
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True)

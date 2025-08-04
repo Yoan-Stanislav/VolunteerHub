@@ -7,42 +7,52 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('locations', '0001_initial'),
+        ("locations", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='location',
+            name="location",
             options={},
         ),
         migrations.RemoveField(
-            model_name='location',
-            name='gps_lat',
+            model_name="location",
+            name="gps_lat",
         ),
         migrations.RemoveField(
-            model_name='location',
-            name='gps_lon',
+            model_name="location",
+            name="gps_lon",
         ),
         migrations.AddField(
-            model_name='location',
-            name='country',
-            field=models.CharField(default=datetime.datetime(2025, 7, 28, 8, 12, 7, 231093, tzinfo=datetime.timezone.utc), max_length=100),
+            model_name="location",
+            name="country",
+            field=models.CharField(
+                default=datetime.datetime(
+                    2025, 7, 28, 8, 12, 7, 231093, tzinfo=datetime.timezone.utc
+                ),
+                max_length=100,
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='location',
-            name='name',
-            field=models.CharField(default=datetime.datetime(2025, 7, 28, 8, 12, 24, 180937, tzinfo=datetime.timezone.utc), max_length=200),
+            model_name="location",
+            name="name",
+            field=models.CharField(
+                default=datetime.datetime(
+                    2025, 7, 28, 8, 12, 24, 180937, tzinfo=datetime.timezone.utc
+                ),
+                max_length=200,
+            ),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='location',
-            name='address',
+            model_name="location",
+            name="address",
             field=models.CharField(max_length=300),
         ),
         migrations.AlterField(
-            model_name='location',
-            name='city',
+            model_name="location",
+            name="city",
             field=models.CharField(max_length=100),
         ),
     ]

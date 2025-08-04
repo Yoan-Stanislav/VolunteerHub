@@ -4,6 +4,7 @@ from events.models import Event
 
 User = get_user_model()
 
+
 class Application(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)

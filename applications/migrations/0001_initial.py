@@ -10,23 +10,56 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('events', '0001_initial'),
+        ("events", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Application',
+            name="Application",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('status', models.CharField(choices=[('PEN', 'Pending'), ('APP', 'Approved'), ('REJ', 'Rejected')], default='PEN', max_length=3)),
-                ('applied_at', models.DateTimeField(auto_now_add=True)),
-                ('event', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='applications', to='events.event')),
-                ('volunteer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='applications', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("PEN", "Pending"),
+                            ("APP", "Approved"),
+                            ("REJ", "Rejected"),
+                        ],
+                        default="PEN",
+                        max_length=3,
+                    ),
+                ),
+                ("applied_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "event",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="applications",
+                        to="events.event",
+                    ),
+                ),
+                (
+                    "volunteer",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="applications",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'ordering': ['-applied_at'],
-                'unique_together': {('event', 'volunteer')},
+                "ordering": ["-applied_at"],
+                "unique_together": {("event", "volunteer")},
             },
         ),
     ]

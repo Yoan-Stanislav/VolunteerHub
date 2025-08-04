@@ -24,8 +24,12 @@ class Event(models.Model):
     date = models.DateField(validators=[validate_future])
     capacity = models.PositiveIntegerField()
     category = models.CharField(max_length=3, choices=CATEGORY)
-    organization = models.ForeignKey(Organization, on_delete=models.CASCADE, related_name="events")
-    location = models.ForeignKey(Location, on_delete=models.PROTECT, related_name="events")
+    organization = models.ForeignKey(
+        Organization, on_delete=models.CASCADE, related_name="events"
+    )
+    location = models.ForeignKey(
+        Location, on_delete=models.PROTECT, related_name="events"
+    )
 
     class Meta:
         ordering = ["-date"]
@@ -35,4 +39,4 @@ class Event(models.Model):
 
     @property
     def available_seats(self):
-        return self.capacity - self.applications.filter(status='APP').count()
+        return self.capacity - self.applications.filter(status="APP").count()

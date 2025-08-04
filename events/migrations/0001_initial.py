@@ -10,25 +10,59 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('locations', '0001_initial'),
-        ('organizations', '0001_initial'),
+        ("locations", "0001_initial"),
+        ("organizations", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Event',
+            name="Event",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=80)),
-                ('description', models.TextField()),
-                ('date', models.DateField(validators=[events.models.validate_future])),
-                ('capacity', models.PositiveIntegerField()),
-                ('category', models.CharField(choices=[('ENV', 'Environment'), ('SOC', 'Social'), ('EDU', 'Education'), ('HEA', 'Health'), ('ART', 'Art & Culture')], max_length=3)),
-                ('location', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='events', to='locations.location')),
-                ('organization', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='events', to='organizations.organization')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=80)),
+                ("description", models.TextField()),
+                ("date", models.DateField(validators=[events.models.validate_future])),
+                ("capacity", models.PositiveIntegerField()),
+                (
+                    "category",
+                    models.CharField(
+                        choices=[
+                            ("ENV", "Environment"),
+                            ("SOC", "Social"),
+                            ("EDU", "Education"),
+                            ("HEA", "Health"),
+                            ("ART", "Art & Culture"),
+                        ],
+                        max_length=3,
+                    ),
+                ),
+                (
+                    "location",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="events",
+                        to="locations.location",
+                    ),
+                ),
+                (
+                    "organization",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="events",
+                        to="organizations.organization",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['-date'],
+                "ordering": ["-date"],
             },
         ),
     ]

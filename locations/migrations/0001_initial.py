@@ -7,21 +7,49 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Location',
+            name="Location",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('city', models.CharField(max_length=40)),
-                ('address', models.CharField(max_length=100, verbose_name='Street & No.')),
-                ('gps_lat', models.DecimalField(blank=True, decimal_places=5, max_digits=8, null=True, verbose_name='Latitude')),
-                ('gps_lon', models.DecimalField(blank=True, decimal_places=5, max_digits=8, null=True, verbose_name='Longitude')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("city", models.CharField(max_length=40)),
+                (
+                    "address",
+                    models.CharField(max_length=100, verbose_name="Street & No."),
+                ),
+                (
+                    "gps_lat",
+                    models.DecimalField(
+                        blank=True,
+                        decimal_places=5,
+                        max_digits=8,
+                        null=True,
+                        verbose_name="Latitude",
+                    ),
+                ),
+                (
+                    "gps_lon",
+                    models.DecimalField(
+                        blank=True,
+                        decimal_places=5,
+                        max_digits=8,
+                        null=True,
+                        verbose_name="Longitude",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['city', 'address'],
+                "ordering": ["city", "address"],
             },
         ),
     ]
