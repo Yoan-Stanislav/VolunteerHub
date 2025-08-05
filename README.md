@@ -89,7 +89,7 @@ default.png
 - В папката `profile_images/` сложете снимка по подразбиране с име **`default.png`**
 - 
 - **Примерно изображение за default профилна снимка:**  
-![default.png](media/profile_images/default.png)
+![default.png](default.png)
 
 - Качените от потребители снимки ще се съхраняват в тази папка автоматично при използване на сайта.
 
