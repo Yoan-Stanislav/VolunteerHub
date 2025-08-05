@@ -6,7 +6,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView, UpdateView, DetailView
 from .models import VolunteerProfile, Message
 from .forms import ProfileForm, RegistrationForm
-from .services import create_profile_and_add_staff
 from django import forms
 from django.contrib.auth.models import User
 
@@ -62,7 +61,7 @@ class MessageForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user')
         super().__init__(*args, **kwargs)
-        # Показвай само другите потребители като опция за получател
+        # Показва само другите потребители като опция за получател
         self.fields['recipient'].queryset = User.objects.exclude(id=user.id)
 
 # INBOX

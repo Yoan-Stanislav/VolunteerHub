@@ -104,11 +104,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/accounts/login/"
 
-# --- Security settings (Safe for development, toggle for prod) ---
-SESSION_COOKIE_SECURE = False  # ПРОМЕНИ на True само за production!
-CSRF_COOKIE_SECURE = False  # ПРОМЕНИ на True само за production!
-SECURE_SSL_REDIRECT = False  # True САМО НА PRODUCTION!
-SECURE_HSTS_SECONDS = 0  # 31536000 на production
+
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+SECURE_SSL_REDIRECT = False
+SECURE_HSTS_SECONDS = 0
 SECURE_HSTS_INCLUDE_SUBDOMAINS = False
 SECURE_HSTS_PRELOAD = False
 X_FRAME_OPTIONS = "DENY"
@@ -160,7 +160,7 @@ if "runserver" in sys.argv:
     SECURE_HSTS_PRELOAD = False
 
 
-# --- Production ONLY: копирай долното само за production env! ---
+
 # SESSION_COOKIE_SECURE = True
 # CSRF_COOKIE_SECURE = True
 # SECURE_SSL_REDIRECT = True

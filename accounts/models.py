@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+
 class VolunteerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     phone = models.CharField(max_length=15, blank=True)
@@ -14,7 +15,7 @@ class VolunteerProfile(models.Model):
     )
 
     def save(self, *args, **kwargs):
-        # Ако снимката е None или празна, слагаме default
+        # Ако снимката е None или празна, слага default
         if not self.image:
             self.image = "profile_images/default.png"
         super().save(*args, **kwargs)

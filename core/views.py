@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views.generic import FormView
 from .forms import ContactUsForm
+from .models import ContactMessage
 
 
 class ContactView(FormView):
@@ -10,10 +11,12 @@ class ContactView(FormView):
     success_url = reverse_lazy("contact:contact")
 
     def form_valid(self, form):
-        # Тук изпращаме email или записваме в базата:
-        # name = form.cleaned_data['name']
-        # email = form.cleaned_data['email']
-        # message = form.cleaned_data['message']
+
+        ContactMessage.objects.create(
+            name=form.cleaned_data["name"],
+            email=form.cleaned_data["email"],
+            message=form.cleaned_data["message"],
+        )
         messages.success(
             self.request, "Благодарим за Вашето съобщение! Ще се свържем с Вас."
         )

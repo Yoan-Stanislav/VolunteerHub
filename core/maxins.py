@@ -1,9 +1,8 @@
-# core/mixins.py
 from django.contrib.auth.mixins import UserPassesTestMixin
 
 
 class OwnerOrSuperuserRequiredMixin(UserPassesTestMixin):
-    """Достъп само за собственика на обекта или суперпотребител."""
+    "Достъп само за собственика на обекта или суперпотребител."
 
     def test_func(self):
         obj = self.get_object()

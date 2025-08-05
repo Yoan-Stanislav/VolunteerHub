@@ -109,5 +109,4 @@ class EventCRUDTest(TestCase):
             },
             follow=True,
         )
-        # Съобщението се намира в messages (виж base.html)
         self.assertContains(response, "Събитието беше създадено успешно!")

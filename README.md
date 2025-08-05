@@ -124,8 +124,5 @@ python manage.py runserver
 
 Достъп през localhost:8000
 
-yaml
-Копиране
-Редактиране
 
 

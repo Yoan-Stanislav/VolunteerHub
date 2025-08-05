@@ -1,4 +1,3 @@
-# events/services.py
 from .models import Event
 
 

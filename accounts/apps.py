@@ -15,7 +15,7 @@ def create_user_groups(sender, **kwargs):
     # 2) staff
     staff, created = Group.objects.get_or_create(name="staff")
     if created:
-        # Първо проверяваме дали ContentType ги има!
+
         ct_event = ContentType.objects.filter(app_label="events", model="event").first()
         ct_location = ContentType.objects.filter(
             app_label="locations", model="location"
@@ -32,7 +32,7 @@ def create_user_groups(sender, **kwargs):
                 ],
             )
             staff.permissions.set(perms)
-        # Ако липсват – просто прескачаме. При следващ run/миграция ще ги сетне!
+
 
 
 from django.apps import AppConfig

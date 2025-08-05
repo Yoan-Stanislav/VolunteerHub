@@ -23,10 +23,10 @@ urlpatterns = [
     path("event/<int:pk>/delete/", EventDeleteView.as_view(), name="event-delete"),
 ]
 
-# DRF router
+
 router = DefaultRouter()
 router.register(
     r"events", EventViewSet, basename="event"
-)  # само 'events' тук, без 'api/'
+)
 
-# ТУК НЕ добавяй router.urls към горните urlpatterns, а ги включи отделно в main urls.py!
+

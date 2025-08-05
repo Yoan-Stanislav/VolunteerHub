@@ -6,14 +6,13 @@ from applications.models import Application
 class ApplicationInline(admin.TabularInline):
     model = Application
     extra = 0
-    fields = ("user", "message", "created_at")  # реалните полета
-    readonly_fields = ("created_at",)  # само created_at като read-only
+    fields = ("user", "message", "created_at")
+    readonly_fields = ("created_at",)
 
 
 @admin.action(description="Approve selected applications")
 def approve_applications(modeladmin, request, queryset):
-    # Примерна логика, ако искаш да добавиш статус
-    updated = queryset.update(message="APPROVED")  # или друга логика
+    updated = queryset.update(message="APPROVED")
     modeladmin.message_user(request, f"{updated} application(s) approved.")
 
 
