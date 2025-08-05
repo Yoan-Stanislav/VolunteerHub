@@ -29,7 +29,7 @@ INSTALLED_APPS = [
     "locations",
     "core",
     "csp",
-    "axes",  #
+    "axes",
 ]
 
 MIDDLEWARE = [
@@ -96,6 +96,10 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+# --- MEDIA settings for profile images ---
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/accounts/login/"
@@ -126,7 +130,7 @@ CONTENT_SECURITY_POLICY = {
             "cdn.jsdelivr.net",
             "stackpath.bootstrapcdn.com",
         ),
-        "img-src": ("'self'", "data:"),
+        "img-src": ("'self'", "data:", "blob:"),
     }
 }
 
@@ -154,6 +158,7 @@ if "runserver" in sys.argv:
     SECURE_HSTS_SECONDS = 0
     SECURE_HSTS_INCLUDE_SUBDOMAINS = False
     SECURE_HSTS_PRELOAD = False
+
 
 # --- Production ONLY: копирай долното само за production env! ---
 # SESSION_COOKIE_SECURE = True

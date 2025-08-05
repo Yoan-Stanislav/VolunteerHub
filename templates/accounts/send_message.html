@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="container-md">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8">
+      <h1 class="mb-4 text-center">Изпрати съобщение</h1>
+      <div class="card">
+        <div class="card-body">
+          <form method="post" novalidate>
+            {% csrf_token %}
+            <div class="mb-3">
+              {{ form.recipient.label_tag }}
+              {{ form.recipient|add_class:"form-select" }}
+              {% if form.recipient.errors %}
+                <div class="text-danger small">{{ form.recipient.errors }}</div>
+              {% endif %}
+            </div>
+            <div class="mb-3">
+              {{ form.subject.label_tag }}
+              {{ form.subject|add_class:"form-control" }}
+              {% if form.subject.errors %}
+                <div class="text-danger small">{{ form.subject.errors }}</div>
+              {% endif %}
+            </div>
+            <div class="mb-3">
+              {{ form.body.label_tag }}
+              {{ form.body|add_class:"form-control" }}
+              {% if form.body.errors %}
+                <div class="text-danger small">{{ form.body.errors }}</div>
+              {% endif %}
+            </div>
+            <button type="submit" class="btn btn-primary">Изпрати</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

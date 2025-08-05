@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Изпратени съобщения</h2>
+<a href="{% url 'accounts:send_message' %}" class="btn btn-primary">Изпрати ново съобщение</a>
+<ul class="list-group mt-3">
+    {% for msg in messages %}
+        <li class="list-group-item">
+            <b>До:</b> {{ msg.recipient.username }}<br>
+            <b>Тема:</b> {{ msg.subject }}<br>
+            <b>Изпратено на:</b> {{ msg.date_sent|date:"d.m.Y H:i" }}<br>
+            <div>{{ msg.body }}</div>
+        </li>
+    {% empty %}
+        <li class="list-group-item">Нямате изпратени съобщения.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

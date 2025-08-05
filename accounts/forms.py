@@ -41,7 +41,7 @@ class UserForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = VolunteerProfile
-        fields = ["phone", "birth_date", "skills"]
+        fields = ["phone", "birth_date", "skills", "image"]
         widgets = {
             "birth_date": forms.DateInput(attrs={"type": "date"}),
         }

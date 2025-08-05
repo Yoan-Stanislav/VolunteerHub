@@ -1,4 +1,7 @@
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
+
 from django.urls import path, include
 from events.views import EventListView
 from events.api import EventViewSet
@@ -23,5 +26,8 @@ urlpatterns = [
     ),
     path("locations/", include(("locations.urls", "locations"), namespace="locations")),
     path("contact/", include(("core.urls", "contact"), namespace="contact")),
-    path("api/", include(router.urls)),  # <-- ТОВА ДОБАВЯ api/events/
+    path("api/", include(router.urls)),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

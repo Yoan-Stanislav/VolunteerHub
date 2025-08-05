@@ -1,7 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from .views import RegisterView, ProfileDetailView, ProfileUpdateView
-
+from .views import inbox, outbox, send_message
 app_name = "accounts"
 
 urlpatterns = [
@@ -18,4 +18,7 @@ urlpatterns = [
     path("register/", RegisterView.as_view(), name="register"),
     path("profile/", ProfileDetailView.as_view(), name="profile"),
     path("profile/edit/", ProfileUpdateView.as_view(), name="profile-edit"),
+    path("messages/inbox/", inbox, name="inbox"),
+    path("messages/outbox/", outbox, name="outbox"),
+    path("messages/send/", send_message, name="send_message"),
 ]

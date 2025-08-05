@@ -5,19 +5,33 @@
 <div class="container-md">
   <div class="row justify-content-center">
     <div class="col-12 col-md-8">
-      <h1 class="mb-4 text-center">Моят профил</h1>
-      <div class="card mb-4">
+      {% if profile.image %}
+        <div class="text-center mb-3">
+          <img src="{{ profile.image.url }}" alt="Profile picture" class="rounded-circle shadow" style="max-width:140px; max-height:140px;">
+        </div>
+      {% endif %}
+      <h1 class="fw-bold text-center mb-1" style="font-size:2.5rem;">
+        {{ profile.user.get_full_name|default:profile.user.username }}
+      </h1>
+      <p class="text-center text-muted mb-4" style="font-size:1.3rem;">
+        Моят профил
+      </p>
+      <div class="d-flex justify-content-center gap-2 mb-4">
+        <a href="{% url 'accounts:inbox' %}" class="btn btn-outline-primary">Входящи</a>
+        <a href="{% url 'accounts:outbox' %}" class="btn btn-outline-secondary">Изпратени</a>
+        <a href="{% url 'accounts:send_message' %}" class="btn btn-primary">Ново съобщение</a>
+      </div>
+      <div class="card mb-4 shadow-sm">
         <div class="card-body">
-          <h5 class="card-title text-center">{{ profile.user.get_full_name }}</h5>
           <ul class="list-group list-group-flush">
             <li class="list-group-item"><strong>Email:</strong> {{ profile.user.email }}</li>
             <li class="list-group-item"><strong>Телефон:</strong> {{ profile.phone }}</li>
-            <li class="list-group-item"><strong>Дата на раждане:</strong> {{ profile.birth_date }}</li>
+            <li class="list-group-item"><strong>Дата на раждане:</strong> {{ profile.birth_date|date:"d.m.Y" }}</li>
             <li class="list-group-item"><strong>Умения:</strong> {{ profile.skills }}</li>
           </ul>
         </div>
-        <div class="card-footer text-end">
-          <a href="{% url 'accounts:profile-edit' %}" class="btn btn-primary">Редактирай профила</a>
+        <div class="card-footer text-end bg-light border-top-0">
+          <a href="{% url 'accounts:profile-edit' %}" class="btn btn-success">Редактирай профила</a>
         </div>
       </div>
     </div>

@@ -1,10 +1,14 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView, UpdateView, DetailView
-from .models import VolunteerProfile
+from .models import VolunteerProfile, Message
 from .forms import ProfileForm, RegistrationForm
 from .services import create_profile_and_add_staff
+from django import forms
+from django.contrib.auth.models import User
 
 
 class RegisterView(CreateView):
@@ -48,3 +52,44 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     def form_invalid(self, form):
         messages.error(self.request, "Please correct the errors below.")
         return super().form_invalid(form)
+
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['recipient', 'subject', 'body']
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
+        super().__init__(*args, **kwargs)
+        # Показвай само другите потребители като опция за получател
+        self.fields['recipient'].queryset = User.objects.exclude(id=user.id)
+
+# INBOX
+@login_required
+def inbox(request):
+    messages_in = Message.objects.filter(recipient=request.user).order_by('-date_sent')
+    return render(request, "accounts/inbox.html", {"messages": messages_in})
+
+# OUTBOX
+@login_required
+def outbox(request):
+    messages_out = Message.objects.filter(sender=request.user).order_by('-date_sent')
+    return render(request, "accounts/outbox.html", {"messages": messages_out})
+
+# SEND MESSAGE
+@login_required
+def send_message(request):
+    if request.method == "POST":
+        form = MessageForm(request.POST, user=request.user)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.sender = request.user
+            message.save()
+            messages.success(request, "Съобщението беше изпратено!")
+            return redirect("accounts:outbox")
+        else:
+            messages.error(request, "Грешка при изпращане на съобщението.")
+    else:
+        form = MessageForm(user=request.user)
+    return render(request, "accounts/send_message.html", {"form": form})
