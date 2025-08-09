@@ -1,7 +1,6 @@
-import bleach
 from django import forms
-from .models import Application
 from html_sanitizer import Sanitizer
+from .models import Application
 
 
 class ApplicationForm(forms.ModelForm):
@@ -11,8 +10,8 @@ class ApplicationForm(forms.ModelForm):
         widgets = {"message": forms.Textarea(attrs={"rows": 4})}
 
     def clean_message(self):
-        message = self.cleaned_data.get("message")
-        if not message or len(message) < 10:
+        message = self.cleaned_data.get("message", "")
+        if message and len(message) < 10:
             raise forms.ValidationError("Message must be at least 10 characters long.")
-        sanitizer = Sanitizer()
-        return sanitizer.sanitize(message)
+        return Sanitizer().sanitize(message)
+

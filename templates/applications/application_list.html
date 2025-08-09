@@ -1,26 +1,31 @@
 {% extends "base.html" %}
+
 {% block title %}Моите кандидатури{% endblock %}
+
 {% block content %}
-<h2 class="mb-3">Моите кандидатури</h2>
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Събитие</th>
-        <th>Статус</th>
-        <th>Съобщение</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for application in applications %}
-      <tr>
-        <td>{{ application.event.title }}</td>
-        <td>{{ application.get_status_display }}</td>
-        <td>{{ application.message }}</td>
-      </tr>
+<div class="container-md">
+  <h2 class="mb-3">Моите кандидатури</h2>
+  {% if applications %}
+    <div class="list-group">
+      {% for a in applications %}
+        <div class="list-group-item d-flex justify-content-between align-items-start">
+          <div>
+            <div class="fw-bold">{{ a.event.title }}</div>
+            <small class="text-muted">{{ a.created_at|date:"d.m.Y H:i" }}</small>
+            {% if a.message %}<div class="mt-2">{{ a.message }}</div>{% endif %}
+          </div>
+          {% if a.status == "PEN" %}
+            <span class="badge bg-warning text-dark">Pending</span>
+          {% elif a.status == "APP" %}
+            <span class="badge bg-success">Approved</span>
+          {% else %}
+            <span class="badge bg-danger">Rejected</span>
+          {% endif %}
+        </div>
       {% endfor %}
-    </tbody>
-  </table>
+    </div>
+  {% else %}
+    <div class="alert alert-info">Нямате подадени кандидатури.</div>
+  {% endif %}
 </div>
 {% endblock %}
-

@@ -37,6 +37,7 @@ class Event(models.Model):
     def __str__(self):
         return f"{self.title} ({self.date})"
 
-    @property
     def available_seats(self):
-        return self.capacity - self.applications.filter(status="APP").count()
+
+        return self.capacity - self.applications.count()
+

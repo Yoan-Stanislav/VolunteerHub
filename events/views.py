@@ -1,13 +1,9 @@
 from django.contrib import messages
 from django.urls import reverse_lazy
+from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
-    ListView,
-    DetailView,
-    CreateView,
-    UpdateView,
-    DeleteView,
-    TemplateView,
+    ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 )
 
 from .models import Event
@@ -17,6 +13,8 @@ from .services import (
     set_event_organization_if_missing,
     user_can_edit_event,
 )
+
+from applications.models import Application
 
 
 class DashboardView(LoginRequiredMixin, ListView):
@@ -33,11 +31,32 @@ class EventListView(ListView):
     paginate_by = 10
     template_name = "events/event_list.html"
 
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            ctx["applied_event_ids"] = list(
+                Application.objects
+                .filter(user=self.request.user, status="APP")
+                .values_list("event_id", flat=True)
+            )
+        else:
+            ctx["applied_event_ids"] = []
+        return ctx
+
 
 class EventDetailView(DetailView):
     model = Event
     context_object_name = "event"
     template_name = "events/event_detail.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        user = self.request.user
+        ctx["has_joined"] = (
+            Application.objects.filter(user=user, event=self.object, status="APP").exists()
+            if user.is_authenticated else False
+        )
+        return ctx
 
 
 class EventCreateView(LoginRequiredMixin, CreateView):
@@ -47,6 +66,11 @@ class EventCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("events:dashboard")
     login_url = reverse_lazy("accounts:login")
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
+
     def form_valid(self, form):
         event = form.save(commit=False)
         if not set_event_organization_if_missing(event, self.request.user):
@@ -54,7 +78,7 @@ class EventCreateView(LoginRequiredMixin, CreateView):
             return self.form_invalid(form)
         event.save()
         messages.success(self.request, "Събитието беше създадено успешно!")
-        return super().form_valid(form)
+        return redirect(self.success_url)
 
     def form_invalid(self, form):
         messages.error(self.request, "Моля, коригирайте грешките по-долу.")
@@ -67,12 +91,18 @@ class EventUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     template_name = "events/event_form.html"
     success_url = reverse_lazy("events:dashboard")
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
+
     def test_func(self):
         return user_can_edit_event(self.request.user, self.get_object())
 
     def form_valid(self, form):
+        self.object = form.save()
         messages.success(self.request, "Събитието беше обновено успешно!")
-        return super().form_valid(form)
+        return redirect(self.success_url)
 
     def form_invalid(self, form):
         messages.error(self.request, "Моля, коригирайте грешките по-долу.")

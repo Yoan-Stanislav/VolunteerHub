@@ -1,17 +1,32 @@
 {% extends "base.html" %}
-{% block title %}Кандидатствай{% endblock %}
+{% load widget_tweaks %}
+
+{% block title %}Кандидатстване за {{ event.title }}{% endblock %}
+
 {% block content %}
 <div class="container-md">
   <div class="row justify-content-center">
     <div class="col-12 col-md-6">
-      <h2 class="mb-3">Кандидатствай за събитие</h2>
-      <form method="post">
+      <h2 class="mb-3 text-center">Кандидатстване: {{ event.title }}</h2>
+      <form method="post" novalidate>
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary w-100">Изпрати</button>
+        {% if form.non_field_errors %}
+          <div class="alert alert-danger">
+            {% for error in form.non_field_errors %}<div>{{ error }}</div>{% endfor %}
+          </div>
+        {% endif %}
+        {% for field in form.visible_fields %}
+          <div class="mb-3">
+            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field|add_class:"form-control" }}
+            {% for error in field.errors %}
+              <div class="invalid-feedback d-block">{{ error }}</div>
+            {% endfor %}
+          </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary w-100">Изпрати заявка</button>
       </form>
     </div>
   </div>
 </div>
 {% endblock %}
-
